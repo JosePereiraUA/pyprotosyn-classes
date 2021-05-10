@@ -249,15 +249,16 @@ if __name__ == "__main__":
 
             # 4.1) Get list of atoms and name of aminoacid N.
             aminoacid_atoms = list(filter(lambda at: at.res_id == res, mol.atoms))
+            aminoacid_atoms_next = list(filter(lambda at: at.res_id == res + 1, mol.atoms))
             name = aminoacid_atoms[0].res_name
             if not name in rot_lib.keys() or name == "PRO":
                 continue
 
             # 4.2) Get the RotamerStack for the current phi and psi value. 
-            CA = list(filter(lambda at: at.name == "CA", aminoacid_atoms))[0]
-            phi = measure_dihedral(CA)
-            C = list(filter(lambda at: at.name == "C", aminoacid_atoms))[0]
-            psi = measure_dihedral(C)
+            C  = list(filter(lambda at: at.name == "C", aminoacid_atoms))[0]
+            phi = measure_dihedral(C)
+            N   = list(filter(lambda at: at.name == "N", aminoacid_atoms_next))[0]
+            psi = measure_dihedral(N)
             rotamer_stack = rot_lib[name].get_rotamer_stack(phi, psi)
 
             # 4.3) Sample Rotamer from RotamerStack based on normalized weights
