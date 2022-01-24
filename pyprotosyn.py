@@ -1,4 +1,5 @@
 # Built and tested on Python 3.8.8
+# Developed by Zé
 import numpy as np
 
 # ------------------------------------------------------------------------------
